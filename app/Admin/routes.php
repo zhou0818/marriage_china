@@ -11,7 +11,12 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
+    //单身会员
     $router->resource('unmarried_users', 'UnmarriedUsersController');
+    //已婚会员
     $router->resource('married_users', 'MarriedUsersController');
+    //未审核会员
+    $router->resource('unaudited_users', 'UnauditedUsersController');
+
 
 });

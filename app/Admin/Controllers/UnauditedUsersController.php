@@ -2,19 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use Admin;
-use App\Enums\UserStatusEnum;
-use App\Enums\UserTypeEnum;
-use App\Http\Controllers\Controller;
+use App\Admin\Controllers\Traits\UsersHelper;
 use App\Models\User;
-use Encore\Admin\Controllers\ModelForm;
+
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
+use Admin;
 use Encore\Admin\Layout\Content;
+use App\Http\Controllers\Controller;
+use Encore\Admin\Controllers\ModelForm;
 
-class UnmarriedUsersController extends Controller
+class UnauditedUsersController extends Controller
 {
     use ModelForm;
+    use UsersHelper;
 
     /**
      * Index interface.
@@ -25,7 +26,8 @@ class UnmarriedUsersController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('单身会员');
+            $content->header('待审核会员');
+            $content->description('已补全资料等待审核');
 
             $content->body($this->grid());
         });
@@ -73,13 +75,7 @@ class UnmarriedUsersController extends Controller
     {
         return Admin::grid(User::class, function (Grid $grid) {
 
-            $grid->model()->where(['type' => UserTypeEnum::UNMARRIED, 'status' => UserStatusEnum::AUDITED]);
-
-            $grid->id('ID')->sortable();
-
-            $grid->created_at();
-            $grid->updated_at();
-
+            $this->users_grid_col($grid);
         });
     }
 

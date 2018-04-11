@@ -227,5 +227,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
-
+    // 生成中文数据
+    'faker_locale' => 'zh_CN',
 ];
