@@ -14,7 +14,7 @@ $factory->define(\App\Models\Profile::class, function (Faker $faker) {
         'ethnic' => '汉族',
         'province' => $faker->state,
         'city' => $faker->city,
-        'district' => $faker->area,
+        'area' => $faker->area,
         'address' => $faker->streetAddress,
         'desc' => $faker->sentence(),
         'created_at' => $time,

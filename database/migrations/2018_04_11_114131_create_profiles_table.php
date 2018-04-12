@@ -19,13 +19,14 @@ class CreateProfilesTable extends Migration
             $table->string('name');
             $table->integer('gender');
             $table->string('ethnic');
+            $table->timestamp('birthday');
             $table->string('province');
             $table->string('city');
-            $table->string('district');
+            $table->string('area');
             $table->string('address');
             $table->string('id_card');
-            $table->string('marriage_cert');
-            $table->string('desc');
+            $table->string('marriage_cert')->nullable();
+            $table->string('desc')->nullable();
             $table->timestamps();
         });
     }

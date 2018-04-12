@@ -13,4 +13,5 @@ class UserStatusEnum
 {
     const UNAUDITED = 0;
     const AUDITED = 1;
+    const FAIL = -1;
 }

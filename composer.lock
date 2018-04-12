@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "11fd9ed68de095ec455cfb184d040e16",
+    "content-hash": "e7cb400b2cd7c3b85babef4ceb483ab8",
     "packages": [
         {
             "name": "caouecs/laravel-lang",
@@ -53,6 +53,47 @@
                 "lpm"
             ],
             "time": "2018-03-29T11:49:02+00:00"
+        },
+        {
+            "name": "cblink/region",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cblink/region.git",
+                "reference": "e1aa10c3ed74abfa11b94762ba9fee66db6b5c42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cblink/region/zipball/e1aa10c3ed74abfa11b94762ba9fee66db6b5c42",
+                "reference": "e1aa10c3ed74abfa11b94762ba9fee66db6b5c42",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require-dev": {
+                "laravel/framework": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cblink\\Region\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "HanSon",
+                    "email": "h@hanc.cc"
+                }
+            ],
+            "time": "2018-04-04T06:47:59+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

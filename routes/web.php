@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/provinces', 'ChinaAreasController@provinces');
+Route::get('/cities', 'ChinaAreasController@cities');
+Route::get('/areas', 'ChinaAreasController@areas');
+
+

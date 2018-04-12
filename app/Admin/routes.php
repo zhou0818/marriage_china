@@ -18,5 +18,7 @@ Route::group([
     //未审核会员
     $router->resource('unaudited_users', 'UnauditedUsersController');
 
+    $router->get('unaudited_users/{user}/check/{type}', 'UnauditedUsersController@check');
+
 
 });
