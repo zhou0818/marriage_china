@@ -11,7 +11,8 @@ namespace App\Enums;
 
 class UserStatusEnum
 {
-    const UNAUDITED = 0;
-    const AUDITED = 1;
+    const INIT = 0;
+    const UNAUDITED = 1;
+    const AUDITED = 2;
     const FAIL = -1;
 }

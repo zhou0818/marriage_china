@@ -12,17 +12,17 @@ use Encore\Admin\Admin;
 use Encore\Admin\Grid\Tools\AbstractTool;
 use Request;
 
-class UserType extends AbstractTool
+class UserStatus extends AbstractTool
 {
     protected function script()
     {
-        $url = Request::fullUrlWithQuery(['type' => '_type_']);
+        $url = Request::fullUrlWithQuery(['status' => '_status_']);
 
         return <<<EOT
 
-        $('input:radio.user-type').change(function () {
+        $('input:radio.user-status').change(function () {
         
-            var url = "$url".replace('_type_', $(this).val());
+            var url = "$url".replace('_status_', $(this).val());
         
             $.pjax({container:'#pjax-container', url: url });
         
@@ -37,10 +37,12 @@ EOT;
 
         $options = [
             'all' => '全部',
-            'unmarried' => '单身',
-            'married' => '已婚',
+            'init' => '刚注册',
+            'unaudited' => '待审核',
+            'audited' => '已通过',
+            'fail' => '未通过'
         ];
 
-        return view('admin.tools.userType', compact('options'));
+        return view('admin.tools.userStatus', compact('options'));
     }
 }

@@ -2,18 +2,21 @@
 
 namespace App\Admin\Controllers;
 
+use Admin;
+use App\Admin\Controllers\Traits\UsersHelper;
+use App\Enums\UserStatusEnum;
+use App\Enums\UserTypeEnum;
+use App\Http\Controllers\Controller;
 use App\Models\User;
-
+use Encore\Admin\Controllers\ModelForm;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
-use Encore\Admin\Facades\Admin;
 use Encore\Admin\Layout\Content;
-use App\Http\Controllers\Controller;
-use Encore\Admin\Controllers\ModelForm;
 
 class MarriedUsersController extends Controller
 {
     use ModelForm;
+    use UsersHelper;
 
     /**
      * Index interface.
@@ -24,8 +27,7 @@ class MarriedUsersController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('已婚会员');
 
             $content->body($this->grid());
         });
@@ -41,28 +43,12 @@ class MarriedUsersController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('header');
-            $content->description('description');
+            $content->header('已婚会员');
 
             $content->body($this->form()->edit($id));
         });
     }
 
-    /**
-     * Create interface.
-     *
-     * @return Content
-     */
-    public function create()
-    {
-        return Admin::content(function (Content $content) {
-
-            $content->header('header');
-            $content->description('description');
-
-            $content->body($this->form());
-        });
-    }
 
     /**
      * Make a grid builder.
@@ -73,10 +59,11 @@ class MarriedUsersController extends Controller
     {
         return Admin::grid(User::class, function (Grid $grid) {
 
-            $grid->id('ID')->sortable();
+            $grid->model()->where('type', '=', UserTypeEnum::MARRIED);
 
-            $grid->created_at();
-            $grid->updated_at();
+            // user表通用列
+            $this->users_grid_col($grid, false, true);
+
         });
     }
 
@@ -89,10 +76,7 @@ class MarriedUsersController extends Controller
     {
         return Admin::form(User::class, function (Form $form) {
 
-            $form->display('id', 'ID');
-
-            $form->display('created_at', 'Created At');
-            $form->display('updated_at', 'Updated At');
+            $this->users_edit_form($form);
         });
     }
 }

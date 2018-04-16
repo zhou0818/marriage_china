@@ -12,13 +12,10 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     //单身会员
-    $router->resource('unmarried_users', 'UnmarriedUsersController');
+    $router->resource('unmarried_users', 'UnmarriedUsersController')->except('create');
     //已婚会员
-    $router->resource('married_users', 'MarriedUsersController');
+    $router->resource('married_users', 'MarriedUsersController')->except('create');
     //未审核会员
-    $router->resource('unaudited_users', 'UnauditedUsersController');
-
-    $router->get('unaudited_users/{user}/check/{type}', 'UnauditedUsersController@check');
-
+    $router->resource('unaudited_users', 'UnauditedUsersController')->except('create');
 
 });

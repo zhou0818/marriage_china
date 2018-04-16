@@ -3,29 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Provinces;
-use App\Models\Cities;
-use App\Models\Areas;
+use App\Models\Province;
+use App\Models\City;
+use App\Models\Area;
 
 class ChinaAreasController extends Controller
 {
     public function provinces()
     {
-        $provinces = Provinces::all(['id', 'name as text']);
-        return json_encode($provinces, JSON_UNESCAPED_UNICODE);
+        $provinces = Province::all(['id', 'name as text']);
+        return $provinces;
     }
 
     public function cities(Request $request)
     {
         $province_id = $request->get('q');
-        $cities = Cities::where('province_id', $province_id)->get(['id', 'name as text']);
-        return json_encode($cities, JSON_UNESCAPED_UNICODE);
+        $cities = City::where('province_id', $province_id)->get(['id', 'name as text']);
+        return $cities;
     }
 
     public function areas(Request $request)
     {
         $province_id = $request->get('q');
-        $areas = Areas::where('city_id', $province_id)->get(['id', 'name as text']);
-        return json_encode($areas, JSON_UNESCAPED_UNICODE);
+        $areas = Area::where('city_id', $province_id)->get(['id', 'name as text']);
+        return $areas;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use Admin;
+use App\Admin\Controllers\Traits\UsersHelper;
 use App\Enums\UserStatusEnum;
 use App\Enums\UserTypeEnum;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,7 @@ use Encore\Admin\Layout\Content;
 class UnmarriedUsersController extends Controller
 {
     use ModelForm;
+    use UsersHelper;
 
     /**
      * Index interface.
@@ -48,21 +50,6 @@ class UnmarriedUsersController extends Controller
         });
     }
 
-    /**
-     * Create interface.
-     *
-     * @return Content
-     */
-    public function create()
-    {
-        return Admin::content(function (Content $content) {
-
-            $content->header('header');
-            $content->description('description');
-
-            $content->body($this->form());
-        });
-    }
 
     /**
      * Make a grid builder.
@@ -73,12 +60,10 @@ class UnmarriedUsersController extends Controller
     {
         return Admin::grid(User::class, function (Grid $grid) {
 
-            $grid->model()->where(['type' => UserTypeEnum::UNMARRIED, 'status' => UserStatusEnum::AUDITED]);
+            $grid->model()->where('type', '=', UserTypeEnum::UNMARRIED);
 
-            $grid->id('ID')->sortable();
-
-            $grid->created_at();
-            $grid->updated_at();
+            // user表通用列
+            $this->users_grid_col($grid, false, true);
 
         });
     }
@@ -92,10 +77,7 @@ class UnmarriedUsersController extends Controller
     {
         return Admin::form(User::class, function (Form $form) {
 
-            $form->display('id', 'ID');
-
-            $form->display('created_at', 'Created At');
-            $form->display('updated_at', 'Updated At');
+            $this->users_edit_form($form);
         });
     }
 }
