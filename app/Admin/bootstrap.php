@@ -20,6 +20,10 @@
 
 use Encore\Admin\Grid\Column;
 use App\Admin\Extensions\Popover;
+use App\Admin\Extensions\WangEditor;
+use Encore\Admin\Form;
 
 Encore\Admin\Form::forget(['map', 'editor']);
 Column::extend('popover', Popover::class);
+
+Form::extend('editor', WangEditor::class);

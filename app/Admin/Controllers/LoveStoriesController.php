@@ -3,19 +3,19 @@
 namespace App\Admin\Controllers;
 
 use Admin;
-use App\Admin\Controllers\Traits\UsersHelper;
-use App\Enums\UserTypeEnum;
+use App\Admin\Controllers\Traits\ArticlesHelper;
+use App\Handlers\GeoHashHandler;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Article;
 use Encore\Admin\Controllers\ModelForm;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 
-class MarriedUsersController extends Controller
+class LoveStoriesController extends Controller
 {
     use ModelForm;
-    use UsersHelper;
+    use ArticlesHelper;
 
     /**
      * Index interface.
@@ -26,7 +26,8 @@ class MarriedUsersController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('已婚会员');
+            $content->header('爱情故事');
+            $content->description('会员自己的爱情故事');
 
             $content->body($this->grid());
         });
@@ -42,12 +43,11 @@ class MarriedUsersController extends Controller
     {
         return Admin::content(function (Content $content) use ($id) {
 
-            $content->header('已婚会员');
+            $content->header('审核');
 
             $content->body($this->form()->edit($id));
         });
     }
-
 
     /**
      * Make a grid builder.
@@ -56,13 +56,12 @@ class MarriedUsersController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(User::class, function (Grid $grid) {
+        return Admin::grid(Article::class, function (Grid $grid) {
+            $grid->model()->whereHas('category', function ($query) {
+                $query->where('name', '爱情故事');
+            });
 
-            $grid->model()->where('type', '=', UserTypeEnum::MARRIED);
-
-            // user表通用列
-            $this->users_grid_col($grid, false, true);
-
+            $this->articles_grid_col($grid);
         });
     }
 
@@ -73,9 +72,10 @@ class MarriedUsersController extends Controller
      */
     protected function form()
     {
-        return Admin::form(User::class, function (Form $form) {
+        return Admin::form(Article::class, function (Form $form) {
 
-            $this->users_edit_form($form);
+            // 文章通用form
+            $this->articles_form($form);
         });
     }
 }

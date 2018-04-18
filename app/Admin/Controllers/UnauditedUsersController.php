@@ -8,14 +8,14 @@ use App\Enums\UserGenderEnum;
 use App\Enums\UserStatusEnum;
 use App\Enums\UserTypeEnum;
 use App\Http\Controllers\Controller;
+use App\Models\Area;
+use App\Models\City;
+use App\Models\Province;
 use App\Models\User;
 use Encore\Admin\Controllers\ModelForm;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
-use App\Models\Province;
-use App\Models\City;
-use App\Models\Area;
 
 class UnauditedUsersController extends Controller
 {

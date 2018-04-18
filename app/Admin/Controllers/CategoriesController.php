@@ -2,20 +2,18 @@
 
 namespace App\Admin\Controllers;
 
-use Admin;
-use App\Admin\Controllers\Traits\UsersHelper;
-use App\Enums\UserTypeEnum;
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use Encore\Admin\Controllers\ModelForm;
+use App\Models\Category;
+
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
+use Admin;
 use Encore\Admin\Layout\Content;
+use App\Http\Controllers\Controller;
+use Encore\Admin\Controllers\ModelForm;
 
-class UnmarriedUsersController extends Controller
+class CategoriesController extends Controller
 {
     use ModelForm;
-    use UsersHelper;
 
     /**
      * Index interface.
@@ -26,7 +24,7 @@ class UnmarriedUsersController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('单身会员');
+            $content->header('文章分类');
 
             $content->body($this->grid());
         });
@@ -49,6 +47,21 @@ class UnmarriedUsersController extends Controller
         });
     }
 
+    /**
+     * Create interface.
+     *
+     * @return Content
+     */
+    public function create()
+    {
+        return Admin::content(function (Content $content) {
+
+            $content->header('header');
+            $content->description('description');
+
+            $content->body($this->form());
+        });
+    }
 
     /**
      * Make a grid builder.
@@ -57,13 +70,11 @@ class UnmarriedUsersController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(User::class, function (Grid $grid) {
+        return Admin::grid(Category::class, function (Grid $grid) {
+            $grid->disableExport();
 
-            $grid->model()->where('type', '=', UserTypeEnum::UNMARRIED);
-
-            // user表通用列
-            $this->users_grid_col($grid, false, true);
-
+            $grid->name('名称');
+            $grid->desc('描述');
         });
     }
 
@@ -74,9 +85,10 @@ class UnmarriedUsersController extends Controller
      */
     protected function form()
     {
-        return Admin::form(User::class, function (Form $form) {
+        return Admin::form(Category::class, function (Form $form) {
+            $form->text('name', '名称')->rules('required|min:3');
+            $form->textarea('desc', '描述')->rows(3);
 
-            $this->users_edit_form($form);
         });
     }
 }

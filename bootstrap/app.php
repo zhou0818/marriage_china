@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/helpers.php';
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -12,7 +13,7 @@
 */
 
 $app = new Illuminate\Foundation\Application(
-    realpath(__DIR__.'/../')
+    realpath(__DIR__ . '/../')
 );
 
 /*

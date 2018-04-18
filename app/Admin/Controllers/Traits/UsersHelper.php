@@ -91,6 +91,7 @@ trait UsersHelper
             });
 
             $status = Request::get('status');
+
             if (in_array($status, ['init', 'unaudited', 'audited', 'fail'])) {
                 switch ($status) {
                     case 'init':
@@ -155,7 +156,7 @@ trait UsersHelper
 
                     // 防止裁图时图片尺寸变大
                     $constraint->upsize();
-                });;
+                });
             $form->image('profile.marriage_cert', '结婚证')
                 ->rules('mimes:jpeg,bmp,png,gif|dimensions:min_width=200,min_height=200', ['dimensions' => '图片的清晰度不够，宽和高需要 200px 以上'])
                 ->resize(800, null, function ($constraint) {
